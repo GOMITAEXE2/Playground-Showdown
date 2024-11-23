@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyPath : MonoBehaviour
 {
     public enum State { Patrol, Chase, Attack, Rest }
     public State currentState;
@@ -44,12 +44,13 @@ public class EnemyAI : MonoBehaviour
             case State.Chase:
                 Chase();
                 break;
-            case State.Attack:
-                Attack();
-                break;
             case State.Rest:
                 Rest();
                 break;
+            case State.Attack:
+                Attack();
+                break;
+            
         }
     }
 

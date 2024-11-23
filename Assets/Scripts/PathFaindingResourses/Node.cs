@@ -1,56 +1,21 @@
 using UnityEngine;
-using System.Collections;
-
-public class Node : IHeapItem<Node>
+public class Node
 {
+    public bool isWalkable; // Indica si el nodo es transitable.
+    public Vector3 worldPosition; // Posición del nodo en el mundo.
+    public int gridX, gridY; // Coordenadas en la cuadrícula.
 
-    public bool walkable;
-    public Vector3 worldPosition;
-    public int gridX;
-    public int gridY;
-    public int movementPenalty;
+    public int gCost; // Costo desde el nodo inicial hasta este nodo.
+    public int hCost; // Costo heurístico estimado hasta el nodo final.
+    public int fCost => gCost + hCost; // Costo total.
 
-    public int gCost;
-    public int hCost;
-    public Node parent;
-    int heapIndex;
+    public Node parent; // Nodo padre para reconstruir el camino.
 
-    public Node(bool _walkable, Vector3 _worldPos, int _gridX, int _gridY, int _penalty)
+    public Node(bool isWalkable, Vector3 worldPosition, int gridX, int gridY)
     {
-        walkable = _walkable;
-        worldPosition = _worldPos;
-        gridX = _gridX;
-        gridY = _gridY;
-        movementPenalty = _penalty;
-    }
-
-    public int fCost
-    {
-        get
-        {
-            return gCost + hCost;
-        }
-    }
-
-    public int HeapIndex
-    {
-        get
-        {
-            return heapIndex;
-        }
-        set
-        {
-            heapIndex = value;
-        }
-    }
-
-    public int CompareTo(Node nodeToCompare)
-    {
-        int compare = fCost.CompareTo(nodeToCompare.fCost);
-        if (compare == 0)
-        {
-            compare = hCost.CompareTo(nodeToCompare.hCost);
-        }
-        return -compare;
+        this.isWalkable = isWalkable;
+        this.worldPosition = worldPosition;
+        this.gridX = gridX;
+        this.gridY = gridY;
     }
 }
